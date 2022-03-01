@@ -1,0 +1,1 @@
+[2022-02-16 17:32:17] local.EMERGENCY: File:/Users/mohanvelegacherla/projects/custom/laravel/sahar/app/Utils/ProductUtil.phpLine:512Message:Trying to get property 'product_type' of non-object  

@@ -1,0 +1,16 @@
+[29-May-2021 10:41:31 America/Boise] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home1/bostonqe/public_html/app/System.php:7
+Stack trace:
+#0 {main}
+  thrown in /home1/bostonqe/public_html/app/System.php on line 7
+[29-May-2021 10:41:32 America/Boise] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home1/bostonqe/public_html/app/System.php:7
+Stack trace:
+#0 {main}
+  thrown in /home1/bostonqe/public_html/app/System.php on line 7
+[29-May-2021 10:41:33 America/Boise] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home1/bostonqe/public_html/app/PurchaseLine.php:7
+Stack trace:
+#0 {main}
+  thrown in /home1/bostonqe/public_html/app/PurchaseLine.php on line 7
+[29-May-2021 10:41:33 America/Boise] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Database\Eloquent\Model' not found in /home1/bostonqe/public_html/app/PurchaseLine.php:7
+Stack trace:
+#0 {main}
+  thrown in /home1/bostonqe/public_html/app/PurchaseLine.php on line 7
