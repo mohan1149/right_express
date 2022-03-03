@@ -1018,6 +1018,10 @@ return [
     'to_customer'=>"To Customer",
     'gifted_to'=>'Gifted To',
     'online'=>'Online',
-
+    'today_profits'=>"Today Transactions",
+    "today_profit"=>"Today Transactions",
+    "daily_profits"=>"Daily Profits",
+    "invoice_number"=>"Invoice Number",
+    "amount"=>"Amount",
 
 ];

@@ -2,7 +2,6 @@
 @section('title', __( 'lang_v1.all_sales'))
 
 @section('content')
-
 <!-- Content Header (Page header) -->
 <section class="content-header no-print">
     <h1>@lang( 'sale.sells')

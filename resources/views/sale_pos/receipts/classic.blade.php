@@ -8,8 +8,6 @@
 			</div>
 			<div class="col-xs-6">
 				<br>
-				<br>
-				<br>
 				<h5>Kaifan, Block -2, Kifan Commercial Complex</h5>
 				<h5>Tel :: (+965) 29415416
 				<h5>Delivery :: (+965) 66444477</h5>
@@ -149,8 +147,6 @@
 				<img src="/img/default.png" style="width: 100%">
 			</div>
 			<div class="col-xs-6">
-				<br>
-				<br>
 				<br>
 				<h5>Kaifan, Block -2, Kifan Commercial Complex</h5>
 				<h5>Tel :: (+965) 29415416

@@ -465,6 +465,9 @@ tr.details td.details-control {
     #toast-container {
       display: none;
     }
+    #sell_table{
+      background-color: red;
+  }
 }
 
 .input-number .btn-default{
