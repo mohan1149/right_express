@@ -6,13 +6,13 @@ $(document).ready(function () {
     let subscription_cost = 0;
     let subscription_pieces = 0;
 
-    $('.brought_today_count').on('keyup', () => {
-        if (parseInt($('.brought_today_count').val()) > quota_left) {
-            alert("Customer don't have enough subscription plan");
-            $('.brought_today_count').val(0);
-            $('.brought_today_count').focus();
-        }
-    });
+    // $('.brought_today_count').on('keyup', () => {
+    //     if (parseInt($('.brought_today_count').val()) > quota_left) {
+    //         alert("Customer don't have enough subscription plan");
+    //         $('.brought_today_count').val(0);
+    //         $('.brought_today_count').focus();
+    //     }
+    // });
     $('.save_tranasaction').on('click', () => {
         let lang = document.documentElement.lang;
         let dir = lang === "ar" ? "rtl" : "ltr";

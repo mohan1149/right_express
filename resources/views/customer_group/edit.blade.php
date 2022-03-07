@@ -18,10 +18,6 @@
       <div class="form-group">
         {!! Form::label('subscription_amout', __( 'lang_v1.subscription_cost' ) . ':*') !!}
           {!! Form::text('subscription_amout', $customer_group->subscription_cost, ['class' => 'form-control input_number', 'required', 'placeholder' => __( 'lang_v1.subscription_cost' ) ]); !!}
-      </div>    
-      <div class="form-group">
-        {!! Form::label('subscription_pieces', __( 'lang_v1.subscription_pieces' ) . ':*') !!}
-          {!! Form::text('subscription_pieces', $customer_group->subscription_pieces, ['class' => 'form-control input_number', 'required', 'placeholder' => __( 'lang_v1.subscription_pieces' ) ]); !!}
       </div>  
     </div>
 

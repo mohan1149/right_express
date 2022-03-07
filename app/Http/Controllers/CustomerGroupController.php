@@ -88,7 +88,7 @@ class CustomerGroupController extends Controller
             $input['business_id'] = $request->session()->get('user.business_id');
             $input['created_by'] = $request->session()->get('user.id');
             $subscription_cost = !empty($request['subscription_amout']) ? $this->commonUtil->num_uf($request['subscription_amout']) : 0;
-            $subscription_pieces = !empty($request['subscription_pieces']) ? $this->commonUtil->num_uf($request['subscription_pieces']) : 0;
+            $subscription_pieces = $subscription_cost + $subscription_cost * (25/100);
             $input['amount'] = !empty($input['amount']) ? $this->commonUtil->num_uf($input['amount']) : 0;
             $customer_group = CustomerGroup::create($input);
             $upCusGrp = CustomerGroup::where('id', $customer_group->id)
@@ -152,14 +152,13 @@ class CustomerGroupController extends Controller
                 $business_id = $request->session()->get('user.business_id');
 
                 $input['amount'] = !empty($input['amount']) ? $this->commonUtil->num_uf($input['amount']) : 0;
-
-                $subscription_cost = !empty($request['subscription_amout']) ? $this->commonUtil->num_uf($request['subscription_amout']) : 0;
-                $subscription_pieces = !empty($request['subscription_pieces']) ? $this->commonUtil->num_uf($request['subscription_pieces']) : 0;
                 $customer_group = CustomerGroup::where('business_id', $business_id)->findOrFail($id);
                 $customer_group->name = $input['name'];
                 $customer_group->amount = $input['amount'];
                 $customer_group->subscription_cost = $request['subscription_amout'];
-                $customer_group->subscription_pieces = $request['subscription_pieces'];
+                $percent = $request['subscription_amout'] * (25/100);
+                $offer = $percent + $request['subscription_amout'];
+                $customer_group->subscription_pieces = $offer;
                 $customer_group->save();
 
                 $output = ['success' => true,

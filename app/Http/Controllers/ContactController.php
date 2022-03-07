@@ -1173,8 +1173,8 @@ class ContactController extends Controller
     public function updateCustomerSubscriptionInfo(Request $request){
         try{
             $cid = $request['cid'];
-            $total_used = $request['total_used'];
-            $total_avil = $request['net_total_avail'];
+            $total_used = number_format($request['total_used'],3);
+            $total_avil = number_format($request['net_total_avail'],3);
             $response = Contact::where('contacts.id',$cid)
             ->update([
                 'custom_field2'=>$total_used,

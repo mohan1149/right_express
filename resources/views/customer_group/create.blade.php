@@ -18,10 +18,6 @@
         {!! Form::label('subscription_amout', __( 'lang_v1.subscription_cost' ) . ':*') !!}
           {!! Form::text('subscription_amout', null, ['class' => 'form-control input_number', 'required', 'placeholder' => __( 'lang_v1.subscription_cost' ) ]); !!}
       </div>    
-      <div class="form-group">
-        {!! Form::label('subscription_pieces', __( 'lang_v1.subscription_pieces' ) . ':*') !!}
-          {!! Form::text('subscription_pieces', null, ['class' => 'form-control input_number', 'required', 'placeholder' => __( 'lang_v1.subscription_pieces' ) ]); !!}
-      </div>    
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary">@lang( 'messages.save' )</button>
       <button type="button" class="btn btn-default" data-dismiss="modal">@lang( 'messages.close' )</button>

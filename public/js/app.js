@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('body').on('click', 'label', function (e) {
         var field_id = $(this).attr('for');
         if (field_id) {
@@ -2287,7 +2288,6 @@ $(document).ready(function () {
     $(document).on('click', 'button.edit_customer_group_button', function () {
         $('div.customer_groups_modal').load($(this).data('href'), function () {
             $(this).modal('show');
-
             $('form#customer_group_edit_form').submit(function (e) {
                 e.preventDefault();
                 var data = $(this).serialize();

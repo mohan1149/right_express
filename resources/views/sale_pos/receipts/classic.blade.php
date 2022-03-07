@@ -1,4 +1,3 @@
-
 <div class="row">
 	{{-- customer receipt --}}
 	<div class="col-xs-6 customer-receipt">
@@ -27,15 +26,21 @@
 					</tr>
 					<tr>
 						<td>Delivery Date</td>
-						<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Date'] }}</td>
+						@if ( isset($receipt_details->types_of_service_custom_fields))
+							<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Date'] }}</td>
+						@endif
 					</tr>
 					<tr>
 						<td>Delivery</td>
-						<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Staff Name'] }}</td>
+						@if ( isset($receipt_details->types_of_service_custom_fields ))
+							<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Staff Name'] }}</td>
+						@endif
 					</tr>
 					<tr>
 						<td>Service Type</td>
-						<td>{{ $receipt_details->types_of_service }}</td>
+						@if ( isset($receipt_details->types_of_service_custom_fields ))
+							<td>{{ $receipt_details->types_of_service }}</td>
+						@endif
 					</tr>
 				</table>
 			</div>
@@ -59,7 +64,11 @@
 					</tr>
 					<tr>
 						<td>Current Bal</td>
-						<td>NILL</td>
+						<td>
+							@if (isset($receipt_details->current_balance))
+								<span>{{ $receipt_details->current_balance }}</span>
+							@endif
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -81,12 +90,15 @@
 								<img src="{{$line['image']}}" alt="Image" width="50" style="float: left; margin-right: 8px;">
 							@endif
                             {{$line['name']}} {{$line['product_variation']}} {{$line['variation']}} 
-                            @if(!empty($line['sub_sku'])), {{$line['sub_sku']}} @endif @if(!empty($line['brand'])), {{$line['brand']}} @endif @if(!empty($line['cat_code'])), {{$line['cat_code']}}@endif
+                            @if(!empty($line['sub_sku'])), {{$line['sub_sku']}} @endif 
+							@if(!empty($line['brand'])), {{$line['brand']}} @endif
+							{{$line['line_note']}}
+							{{-- @if(!empty($line['cat_code'])), {{$line['cat_code']}}@endif --}}
+							
                             @if(!empty($line['product_custom_fields'])), {{$line['product_custom_fields']}} @endif
                             @if(!empty($line['sell_line_note']))({{$line['sell_line_note']}}) @endif 
                             @if(!empty($line['lot_number']))<br> {{$line['lot_number_label']}}:  {{$line['lot_number']}} @endif 
                             @if(!empty($line['product_expiry'])), {{$line['product_expiry_label']}}:  {{$line['product_expiry']}} @endif
-
                             @if(!empty($line['warranty_name'])) <br><small>{{$line['warranty_name']}} </small>@endif @if(!empty($line['warranty_exp_date'])) <small>- {{@format_date($line['warranty_exp_date'])}} </small>@endif
                             @if(!empty($line['warranty_description'])) <small> {{$line['warranty_description'] ?? ''}}</small>@endif
                         </td>
@@ -167,15 +179,21 @@
 					</tr>
 					<tr>
 						<td>Delivery Date</td>
-						<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Date'] }}</td>
+						@if ( isset($receipt_details->types_of_service_custom_fields))
+							<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Date'] }}</td>
+						@endif
 					</tr>
 					<tr>
 						<td>Delivery</td>
-						<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Staff Name'] }}</td>
+						@if ( isset($receipt_details->types_of_service_custom_fields ))
+							<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Staff Name'] }}</td>
+						@endif
 					</tr>
 					<tr>
 						<td>Service Type</td>
-						<td>{{ $receipt_details->types_of_service }}</td>
+						@if ( isset($receipt_details->types_of_service_custom_fields ))
+							<td>{{ $receipt_details->types_of_service }}</td>
+						@endif
 					</tr>
 				</table>
 			</div>
@@ -199,7 +217,11 @@
 					</tr>
 					<tr>
 						<td>Current Bal</td>
-						<td>NILL</td>
+						<td>
+							@if (isset($receipt_details->current_balance))
+								<span>{{ $receipt_details->current_balance }}</span>
+							@endif
+						</td>
 					</tr>
 				</table>
 			</div>

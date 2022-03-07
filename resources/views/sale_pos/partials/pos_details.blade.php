@@ -222,7 +222,7 @@
 								title="@lang('tooltip.express_checkout')">
 								<div class="text-center">
 									<i class="fa fa-check" aria-hidden="true"></i>
-    								<b>@lang('lang_v1.express_checkout_cash')</b>
+    								<b>@lang('lang_v1.save')</b>
     							</div>
 								</button>
 							</div>

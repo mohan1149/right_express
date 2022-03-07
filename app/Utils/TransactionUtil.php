@@ -836,7 +836,7 @@ class TransactionUtil extends Util
 
         //Customer show_customer
         $customer = Contact::find($transaction->contact_id);
-
+        $output['current_balance'] = $customer->custom_field3;
         $output['customer_info'] = '';
         $output['customer_tax_number'] = '';
         $output['customer_tax_label'] = '';
@@ -847,10 +847,10 @@ class TransactionUtil extends Util
             
             if (!empty($output['customer_name']) && $receipt_printer_type != 'printer') {
                 $output['customer_info'] .= $customer->landmark;
-                $output['customer_info'] .= '<br>' . implode(',', array_filter([$customer->city, $customer->state, $customer->country]));
-                $output['customer_info'] .= '<br>' . $customer->mobile;
+                $output['customer_info'] .= ',' . implode(',', array_filter([$customer->city, $customer->state, $customer->country]));
+                $output['customer_info'] .= ',' . $customer->mobile;
             }
-
+            
             $output['customer_tax_number'] = $customer->tax_number;
             $output['customer_tax_label'] = !empty($il->client_tax_label) ? $il->client_tax_label : '';
 
@@ -952,8 +952,8 @@ class TransactionUtil extends Util
             }
 
             $lines = $transaction->sell_lines()->whereNull('parent_sell_line_id')->with($sell_line_relations)->get();
-
             foreach ($lines as $key => $value) {
+
                 if (!empty($value->sub_unit_id)) {
                     $formated_sell_line = $this->recalculateSellLineTotals($business_details->id, $value);
 
@@ -962,7 +962,6 @@ class TransactionUtil extends Util
             }
 
             $details = $this->_receiptDetailsSellLines($lines, $il, $business_details);
-            
             $output['lines'] = $details['lines'];
             $output['taxes'] = [];
             foreach ($details['lines'] as $line) {
@@ -1318,6 +1317,7 @@ class TransactionUtil extends Util
 
                 //Fields for 4th column
                 'line_total' => $this->num_f($line->unit_price_inc_tax * $line->quantity, false, $business_details),
+                'line_note'=>$line->sell_line_note,
             ];
 
             $temp = [];
@@ -3379,7 +3379,6 @@ class TransactionUtil extends Util
 
             $sell_line->unit_details = $unit_details;
         }
-
         return $sell_line;
     }
 
