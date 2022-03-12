@@ -393,7 +393,7 @@ class SellController extends Controller
                     '<span class="service-type-label" data-orig-value="{{$types_of_service_name}}" data-status-name="{{$types_of_service_name}}">{{$types_of_service_name}}</span>'
                 )
                 ->editColumn('res_order_status',function ($row) {
-                    if($row->res_order_status == NULL){
+                    if($row->res_order_status == 'not_done'){
                         return "<button  onClick =updateSellStatus($row->id) class='btn btn-info update_res_order_status'>".__('lang_v1.not_done')."</button> ";
                     }else{
                         return "<badge class='badge badge-success done'>".__("lang_v1.done")."</badge> ";
@@ -680,7 +680,7 @@ class SellController extends Controller
 	
     public function updateSale($id){
         try {
-            DB::table("transactions")->where('id',$id)->update(['res_order_status'=>'served']);
+            DB::table("transactions")->where('id',$id)->update(['res_order_status'=>'done']);
             return response()->json(['success'=>true], 200);
         } catch (\Exception $e) {
             return response()->json(['success'=>false,'msg'=>$e->getMessage()], 200);
