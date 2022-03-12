@@ -3,53 +3,52 @@
 	<div class="col-xs-6 customer-receipt">
 		<div class="row">
 			<div class="col-xs-6">
-				<img src="/img/default.png" style="width: 100%">
+				<img src="/img/default.png" style="width: 75%">
 			</div>
 			<div class="col-xs-6">
-				<br>
-				<h5>Kaifan, Block -2, Kifan Commercial Complex</h5>
-				<h5>Tel :: (+965) 29415416
-				<h5>Delivery :: (+965) 66444477</h5>
+				<h6>Kaifan, Block -2, Kifan Commercial Complex</h6>
+				<h6>Tel :: (+965) 29415416</h6>
+				<h6>Delivery :: (+965) 66444477</h6>
 			</div>
 		</div>
-		<h4 style="text-align: center">Customer Receipt</h4>
+		<h5 style="text-align: center"><strong>{{ $receipt_details->invoice_no }}</strong></h5>
 		<div class="row">
 			<div class="col-xs-6">
 				<table class="full-table">
-					<tr>
-						<td>Invoice No</td>
-						<td>{{ $receipt_details->invoice_no }}</td>
-					</tr>
 					<tr>
 						<td>Received Date</td>
 						<td>{{ $receipt_details->invoice_date }}</td>
 					</tr>
 					<tr>
 						<td>Delivery Date</td>
-						@if ( isset($receipt_details->types_of_service_custom_fields))
-							<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Date'] }}</td>
-						@endif
+						<td>
+							@if ( isset($receipt_details->types_of_service_custom_fields))
+								{{ $receipt_details->types_of_service_custom_fields['Delivery Date'] }}
+							@endif
+						</td>
+						
 					</tr>
 					<tr>
 						<td>Delivery</td>
-						@if ( isset($receipt_details->types_of_service_custom_fields ))
-							<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Staff Name'] }}</td>
-						@endif
+						<td>
+							@if ( isset($receipt_details->types_of_service_custom_fields ))
+								{{ $receipt_details->types_of_service_custom_fields['Delivery Staff Name'] }}
+							@endif
+						</td>
+						
 					</tr>
 					<tr>
 						<td>Service Type</td>
-						@if ( isset($receipt_details->types_of_service_custom_fields ))
-							<td>{{ $receipt_details->types_of_service }}</td>
-						@endif
+						<td>
+							@if ( isset($receipt_details->types_of_service_custom_fields ))
+								{{ $receipt_details->types_of_service }}
+							@endif
+						</td>
 					</tr>
 				</table>
 			</div>
 			<div class="col-xs-6">
 				<table class="full-table">
-					<tr>
-						<td>Receipt No</td>
-						<td>{{ $receipt_details->invoice_no }}</td>
-					</tr>
 					<tr>
 						<td>Name</td>
 						<td>{{ $receipt_details->customer_name }}</td>
@@ -132,21 +131,13 @@
 			<div class="col-xs-6" class="pull-right">
 				<table class="full-right">
 					<tr>
-						<td>Discount</td>
-						<td>-</td>
-					</tr>
-					<tr>
 						<td>Amount</td>
 						<td>{{ $receipt_details->total_paid }}</td>
 					</tr>
-					<tr>
-						<td>Advance</td>
-						<td>-</td>
-					</tr>
-					<tr>
+					{{-- <tr>
 						<td>Balance</td>
 						<td>{{ $receipt_details->total_paid }}</td>
-					</tr>
+					</tr> --}}
 				</table>
 			</div>
 		</div>
@@ -156,53 +147,52 @@
 	<div class="col-xs-6">
 		<div class="row">
 			<div class="col-xs-6">
-				<img src="/img/default.png" style="width: 100%">
+				<img src="/img/default.png" style="width: 75%">
 			</div>
 			<div class="col-xs-6">
-				<br>
-				<h5>Kaifan, Block -2, Kifan Commercial Complex</h5>
-				<h5>Tel :: (+965) 29415416
-				<h5>Delivery :: (+965) 66444477</h5>
+				<h6>Kaifan, Block -2, Kifan Commercial Complex</h6>
+				<h6>Tel :: (+965) 29415416</h6>
+				<h6>Delivery :: (+965) 66444477</h6>
 			</div>
 		</div>
-		<h4 style="text-align: center">Receipt</h4>
+		<h5 style="text-align: center"><strong>{{ $receipt_details->invoice_no }}</strong></h5>
 		<div class="row">
 			<div class="col-xs-6">
 				<table class="full-table">
-					<tr>
-						<td>Invoice No</td>
-						<td>{{ $receipt_details->invoice_no }}</td>
-					</tr>
 					<tr>
 						<td>Received Date</td>
 						<td>{{ $receipt_details->invoice_date }}</td>
 					</tr>
 					<tr>
 						<td>Delivery Date</td>
-						@if ( isset($receipt_details->types_of_service_custom_fields))
-							<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Date'] }}</td>
-						@endif
+						<td>
+							@if ( isset($receipt_details->types_of_service_custom_fields))
+								{{ $receipt_details->types_of_service_custom_fields[__('lang_v1.service_custom_field_1')] }}
+							@endif
+						</td>
+						
 					</tr>
 					<tr>
 						<td>Delivery</td>
-						@if ( isset($receipt_details->types_of_service_custom_fields ))
-							<td>{{ $receipt_details->types_of_service_custom_fields['Delivery Staff Name'] }}</td>
-						@endif
+						<td>
+							@if ( isset($receipt_details->types_of_service_custom_fields ))
+								{{ $receipt_details->types_of_service_custom_fields[__("lang_v1.service_custom_field_2")] }}
+							@endif
+						</td>
+						
 					</tr>
 					<tr>
 						<td>Service Type</td>
-						@if ( isset($receipt_details->types_of_service_custom_fields ))
-							<td>{{ $receipt_details->types_of_service }}</td>
-						@endif
+						<td>
+							@if ( isset($receipt_details->types_of_service_custom_fields ))
+								{{ $receipt_details->types_of_service }}
+							@endif
+						</td>
 					</tr>
 				</table>
 			</div>
 			<div class="col-xs-6">
 				<table class="full-table">
-					<tr>
-						<td>Receipt No</td>
-						<td>{{ $receipt_details->invoice_no }}</td>
-					</tr>
 					<tr>
 						<td>Name</td>
 						<td>{{ $receipt_details->customer_name }}</td>
@@ -283,21 +273,13 @@
 			<div class="col-xs-6" class="pull-right">
 				<table class="full-right">
 					<tr>
-						<td>Discount</td>
-						<td>-</td>
-					</tr>
-					<tr>
 						<td>Amount</td>
 						<td>{{ $receipt_details->total_paid }}</td>
 					</tr>
-					<tr>
-						<td>Advance</td>
-						<td>-</td>
-					</tr>
-					<tr>
+					{{-- <tr>
 						<td>Balance</td>
 						<td>{{ $receipt_details->total_paid }}</td>
-					</tr>
+					</tr> --}}
 				</table>
 			</div>
 		</div>

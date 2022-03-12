@@ -1023,5 +1023,13 @@ return [
     "daily_profits"=>"Daily Profits",
     "invoice_number"=>"Invoice Number",
     "amount"=>"Amount",
+    "contact"=>"Contact",
+    "print"=>"Print",
+    "start_balance"=>"Start Balance",
+    "used_balance"=>"Used Balance",
+    "available_balance"=>"Current Balance",
+    "not_done"=>"Not Done",
+    "done"=>"Done",
+    "res_order_status"=>"Status"
 
 ];

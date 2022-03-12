@@ -68,8 +68,8 @@ Route::middleware(['IsInstalled', 'auth', 'SetSessionData', 'language', 'timezon
     Route::get('/contacts/customers', 'ContactController@getCustomers');
     
     //mohan 12/5/2021
-    // out side orders
-
+    Route::get('/customer-membership/print/{id}','ContactController@printMembership');
+    Route::get('/update-sale/{id}','SellController@updateSale');
     Route::resource('gift-vouchers', 'GiftVoucherController');
     Route::post('/assign/voucher', 'GiftVoucherController@assignVoucher');
     Route::get('/gift-redeems', 'GiftVoucherController@giftRedeems');

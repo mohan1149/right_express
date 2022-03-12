@@ -1206,4 +1206,23 @@ class ContactController extends Controller
             return response()->json($e->getMessage(), 200);
         }
     }
+
+    public function printMembership($id){
+        try{
+            $contact = Contact::join('customer_groups as cg','cg.id','=','contacts.customer_group_id')
+            ->where('contacts.id',$id)
+            ->select([
+                'contacts.*',
+                'cg.subscription_pieces',
+            ])
+            ->first();
+            $content = view('contact.print',['data'=>$contact])->render();
+            return  response()->json([
+                'success'=>true,
+                'html_content'=>$content,
+        ], 200);
+        }catch(\Exception $e){
+            return  response()->json(['success'=>false,'msg'=>$e->getMessage()], 200);
+        }
+    }
 }

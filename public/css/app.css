@@ -66,6 +66,14 @@ legend {
   padding: 10% 16%;
   padding-bottom: 3%;
 }
+
+.badge.badge-success.done{
+  background-color:#1A7BF9;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
 .right-col-content-register {
   padding: 2% 8%;
 }

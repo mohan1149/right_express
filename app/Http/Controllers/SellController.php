@@ -132,6 +132,7 @@ class SellController extends Controller
                     'transactions.additional_notes',
                     'transactions.staff_note',
                     'transactions.shipping_details',
+                    'transactions.res_order_status',
                     DB::raw("CONCAT(COALESCE(u.surname, ''),' ',COALESCE(u.first_name, ''),' ',COALESCE(u.last_name,'')) as added_by"),
                     DB::raw('(SELECT SUM(IF(TP.is_return = 1,-1*TP.amount,TP.amount)) FROM transaction_payments AS TP WHERE
                         TP.transaction_id=transactions.id) as total_paid'),
@@ -391,6 +392,14 @@ class SellController extends Controller
                     'types_of_service_name',
                     '<span class="service-type-label" data-orig-value="{{$types_of_service_name}}" data-status-name="{{$types_of_service_name}}">{{$types_of_service_name}}</span>'
                 )
+                ->editColumn('res_order_status',function ($row) {
+                    if($row->res_order_status == NULL){
+                        return "<button  onClick =updateSellStatus($row->id) class='btn btn-info update_res_order_status'>".__('lang_v1.not_done')."</button> ";
+                    }else{
+                        return "<badge class='badge badge-success done'>".__("lang_v1.done")."</badge> ";
+                    }
+
+                })
                 ->addColumn('total_remaining', function ($row) {
                     $total_remaining =  $row->final_total - $row->total_paid;
                     $total_remaining_html = '<span class="display_currency payment_due" data-currency_symbol="true" data-orig-value="' . $total_remaining . '">' . $total_remaining . '</span>';
@@ -454,7 +463,7 @@ class SellController extends Controller
                         }
                     }]);
 
-            $rawColumns = ['final_total', 'action', 'total_paid', 'total_remaining', 'payment_status', 'invoice_no', 'discount_amount', 'tax_amount', 'total_before_tax', 'shipping_status', 'types_of_service_name', 'payment_methods', 'return_due'];
+            $rawColumns = ['final_total', 'res_order_status','action', 'total_paid', 'total_remaining', 'payment_status', 'invoice_no', 'discount_amount', 'tax_amount', 'total_before_tax', 'shipping_status', 'types_of_service_name', 'payment_methods', 'return_due'];
             return $datatable->rawColumns($rawColumns)
                       ->make(true);
         }
@@ -475,7 +484,6 @@ class SellController extends Controller
         if ($this->productUtil->isModuleEnabled('service_staff')) {
             $service_staffs = $this->productUtil->serviceStaffDropdown($business_id);
         }
-
         return view('sell.index')
         ->with(compact('business_locations', 'customers', 'is_woocommerce', 'sales_representative', 'is_cmsn_agent_enabled', 'commission_agents', 'service_staffs', 'is_tables_enabled', 'is_service_staff_enabled'));
     }
@@ -670,6 +678,14 @@ class SellController extends Controller
             ));
     }
 	
+    public function updateSale($id){
+        try {
+            DB::table("transactions")->where('id',$id)->update(['res_order_status'=>'served']);
+            return response()->json(['success'=>true], 200);
+        } catch (\Exception $e) {
+            return response()->json(['success'=>false,'msg'=>$e->getMessage()], 200);
+        }
+    }
 	
 
 	

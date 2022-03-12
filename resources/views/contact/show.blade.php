@@ -37,11 +37,14 @@
         </div>
     </div>
 	<div class="box">
+        <section class="print_section" id="receipt_section">
+        </section>
         <div class="box-header">
         	<h3 class="box-title">
                 <i class="fa fa-user margin-r-5"></i>
                 @lang( 'contact.contact_info', ['contact' => __('contact.contact') ])
             </h3>
+            <button id={{ $contact->id }} class="btn btn-primary print_customer_membership">{{ __('lang_v1.print') }}</button>
         </div>
         <div class="box-body">
             <span id="view_contact_page"></span>

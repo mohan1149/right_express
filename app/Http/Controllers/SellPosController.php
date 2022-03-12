@@ -132,7 +132,6 @@ class SellPosController extends Controller
         if ($is_service_staff_enabled) {
             $service_staffs = $this->productUtil->serviceStaffDropdown($business_id);
         }
-
         return view('sale_pos.index')->with(compact('business_locations', 'customers', 'sales_representative', 'is_cmsn_agent_enabled', 'commission_agents', 'service_staffs', 'is_tables_enabled', 'is_service_staff_enabled'));
     }
 

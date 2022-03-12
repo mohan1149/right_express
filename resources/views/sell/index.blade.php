@@ -51,7 +51,7 @@
                             <th>@lang('sale.total_paid')</th>
                             <th>@lang('lang_v1.sell_due')</th>
                             <th>@lang('lang_v1.sell_return_due')</th>
-                            <th>@lang('lang_v1.shipping_status')</th>
+                            <th>@lang('lang_v1.res_order_status')</th>
                             <th>@lang('lang_v1.total_items')</th>
                             <th>@lang('lang_v1.types_of_service')</th>
                             <th>@lang('lang_v1.third_party_order_id')</th>
@@ -99,6 +99,19 @@
 
 @section('javascript')
 <script type="text/javascript">
+function updateSellStatus(id){
+    $.ajax({
+         url: '/update-sale/' + id,
+        success: function (result) {
+            if (result.success == true) {
+                sell_table.ajax.reload();
+            } else {
+                toastr.error(result.msg);
+            }
+            },
+        });
+    
+}
 $(document).ready( function(){
     //Date range as a button
     $('#sell_list_filter_date_range').daterangepicker(
@@ -157,7 +170,7 @@ $(document).ready( function(){
             { data: 'total_paid', name: 'total_paid', "searchable": false},
             { data: 'total_remaining', name: 'total_remaining'},
             { data: 'return_due', orderable: false, "searchable": false},
-            { data: 'shipping_status', name: 'shipping_status'},
+            { data: 'res_order_status', name: 'res_order_status'},
             { data: 'total_items', name: 'total_items', "searchable": false},
             { data: 'types_of_service_name', name: 'tos.name'},
             { data: 'service_custom_field_1', name: 'service_custom_field_1'},

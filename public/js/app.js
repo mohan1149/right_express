@@ -1,5 +1,24 @@
 $(document).ready(function () {
+    $(".print_customer_membership").on('click', () => {
+        let id = $('.print_customer_membership').attr('id');
+        $.ajax({
+            url: '/customer-membership/print/' + id,
+            success: function (result) {
+                if (result.success == true) {
+                    var mywindow = window.open('', 'PRINT');
+                    mywindow.document.write(result.html_content);
+                    mywindow.document.close();
+                    mywindow.focus(); 
+                    mywindow.print();
+                    mywindow.close();
+                    return true;
+                } else {
+                    toastr.error(result.msg);
+                }
+            },
+        });
 
+    });
     $('body').on('click', 'label', function (e) {
         var field_id = $(this).attr('for');
         if (field_id) {
