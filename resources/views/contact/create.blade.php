@@ -240,7 +240,7 @@
         <div class="form-group">
 
           <label for="custom_field1">{{__('lang_v1.contact_custom_field1')}}</label>
-          <input checked type="checkbox" name="custom_field1" id="custom_field1">
+          <input value="0" type="text" class="form-control" name="custom_field1" id="custom_field1">
         </div>
       </div>
       {{-- <div class="col-md-3">

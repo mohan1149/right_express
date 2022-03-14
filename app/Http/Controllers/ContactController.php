@@ -211,7 +211,7 @@ class ContactController extends Controller
             $query = Contact::leftjoin('transactions AS t', 'contacts.id', '=', 't.contact_id')
                         ->leftjoin('customer_groups AS cg', 'contacts.customer_group_id', '=', 'cg.id')
                         ->where('contacts.business_id', $business_id)
-                        ->where('contacts.customer_group_id','!=',1)
+                        // ->where('contacts.customer_group_id','!=',1)
                         ->whereDate('contacts.created_at', '>=', $request['start_date'])
                         ->whereDate('contacts.created_at', '<=', $request['end_date'])
                         ->onlyCustomers()
@@ -255,13 +255,9 @@ class ContactController extends Controller
                     'total_paid_value',
                     '<span class="display_currency total_paid_value" data-orig-value="{{ $total_paid_value }}" data-currency_symbol=true data-highlight=false>{{ $total_paid_value }}</span>'
                 )
-                ->editColumn(
-                    'custom_field1',
-                    '<h5 class="customer_sub_status_<?php echo $custom_field1 == "on" ? "on" : "off" ?>"><?php echo $custom_field1 == "on" ? "Paid" : "Not Paid" ?></h5>'
-                )
                 ->addColumn(
-                    'custom_field3',
-                    '<h5><span class="badge <?php echo $custom_field3 == 0 ? "zero_subs_left" : "non_zero" ?>"><?php echo $custom_field3; ?></span></h5>'
+                    'status',
+                    '<h5 class="customer_sub_status_<?php echo $custom_field1 == "0" ? "off" : "on" ?>"><?php echo $custom_field1 == "0" ? "Not" : "Member" ?></h5>'
                 )
                 ->addColumn(
                     'action',
@@ -314,7 +310,7 @@ class ContactController extends Controller
             if (!$reward_enabled) {
                 $contacts->removeColumn('total_rp');
             }
-            return $contacts->rawColumns(['custom_field1','custom_field3','action','total_paid_value'])
+            return $contacts->rawColumns(['custom_field1','custom_field3','action','total_paid_value','status'])
                             ->make(true);
             
         }catch(\Exception $e){
@@ -400,17 +396,15 @@ class ContactController extends Controller
                     $input['contact_id'] = $this->commonUtil->generateReferenceNumber('contacts', $ref_count);
                 }
                 $input['custom_field4'] = $request['customer_area'];
+                if($request['type'] == 'customer'){
+                    $input['custom_field1'] = $request['custom_field1'] * (25 / 100) + $request['custom_field1'];
+                    $input['custom_field2'] =  0;
+                    $input['custom_field3'] = $request['custom_field1'] * (25 / 100) + $request['custom_field1'];
+                    $input['total_paid_value'] = $request['custom_field1'];
+                }
                 $contact = Contact::create($input);
 
-                if($request['type'] == 'customer'){
-                    $csgi = CustomerGroup::where('id',$request['customer_group_id'])->first();
-                    $cusupdate  = Contact::where('id',$contact->id)
-                        ->update([
-                            'custom_field2'=> 0,
-                            'custom_field3' => $csgi->subscription_pieces,
-                            'total_paid_value' => $contact->custom_field1 == 'on' ?  $csgi->subscription_cost : 0,
-                        ]);
-                }
+                
                 //Add opening balance
                 if (!empty($request->input('opening_balance'))) {
                     $this->transactionUtil->createOpeningBalanceTransaction($business_id, $contact->id, $request->input('opening_balance'));
@@ -564,15 +558,12 @@ class ContactController extends Controller
                     $contact->custom_field4 = $request['customer_area'];
                     $contact->save();
 
-                    if($request['type'] == 'customer'){
-                    $csgi = CustomerGroup::where('id',$request['customer_group_id'])->first();
-                $cusupdate  = Contact::where('id',$contact->id)
-                    ->update([
-                        'custom_field2'=> 0,
-                        'custom_field3' => $csgi->subscription_pieces,
-                        'total_paid_value' => $contact->custom_field1 == 'on' ? $csgi->subscription_cost + $contact->total_paid_value : $contact->total_paid_value,
-                    ]);
-                }
+                    // if($request['type'] == 'customer'){
+                    //     $input['custom_field1'] = $request['custom_field1'] * (25 / 100) + $request['custom_field1'];
+                    //     $input['custom_field2'] =  0;
+                    //     $input['custom_field3'] = $request['custom_field1'] * (25 / 100) + $request['custom_field1'];
+                    //     $input['total_paid_value'] = $request['custom_field1'];
+                    // }
 
                     //Get opening balance if exists
                     $ob_transaction =  Transaction::where('contact_id', $id)
@@ -1150,7 +1141,6 @@ class ContactController extends Controller
         try{
             $cid = $request['cid'];
             $response = Contact::where('contacts.id',$cid)
-                ->join('customer_groups','customer_groups.id','=','contacts.customer_group_id')
                 ->where('contacts.type','customer')
                 ->select([
                     'contacts.name',
@@ -1158,10 +1148,7 @@ class ContactController extends Controller
                     'contacts.custom_field1',
                     'contacts.custom_field2',
                     'contacts.custom_field3',
-                    'customer_groups.name',
-                    'customer_groups.subscription_cost',
-                    'customer_groups.subscription_pieces',
-                    'customer_groups.id as group_id',
+                    'total_paid_value'
                 ])
                 ->first();
             return $response;
@@ -1182,7 +1169,7 @@ class ContactController extends Controller
             ]);
             return $response;
         }catch(\Exception $e){
-            return response()->json(0, 200);
+            return response()->json($e->getMessage(), 200);
         }
     }
 
@@ -1191,17 +1178,11 @@ class ContactController extends Controller
             $cid = $request['cid'];
             $check = $request['paid_for_renewal'];
             $customer = Contact::where('id',$cid)->first();
-            $csgi = CustomerGroup::where('id',$customer->customer_group_id)->first();
-            $cusupdate = Contact::where('id',$cid)
+            return Contact::where('id',$cid)
             ->update([
-                'custom_field1' => $check,
-                'custom_field2' => 0,
-                'custom_field3' => $csgi->subscription_pieces,
-                'renewal_count' => $customer->renewal_count + 1,
-                'total_paid_value' => $check == 'on' ?  $csgi->subscription_cost + $customer->total_paid_value : $customer->total_paid_value,
-                
+                'custom_field3' => $check * (25 / 100) + $customer->custom_field3 + $check,
+                'renewal_count' => $customer->renewal_count + 1, 
             ]);
-            return $cusupdate;
         }catch(\Exception $e){
             return response()->json($e->getMessage(), 200);
         }

@@ -21,7 +21,7 @@
             </div>
             <div class="modal-body">
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="paid_for_renewal" id="paid_for_renewal">
+                <input type="text" class="form-control" name="paid_for_renewal" id="paid_for_renewal">
                 <label class="form-check-label" for="paid_for_renewal">@lang('lang_v1.paid_for_renewal')</label>
               </div>
             </div>

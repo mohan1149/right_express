@@ -953,10 +953,10 @@ $(document).ready(function () {
             { data: 'address', name: 'address', orderable: false },
             { data: 'mobile', name: 'mobile' },
             { data: 'total_paid_value', name: 'total_paid_value' },
-            { data: 'subscription_pieces', name: 'cg.subscription_pieces' },
+            { data: 'custom_field1', name: 'custom_field1' },
             { data: 'custom_field2', name: 'custom_field2' },
             { data: 'custom_field3', name: 'custom_field3' },
-            { data: 'custom_field1', name: 'custom_field1' },
+            { data: 'status', name: 'status' },
             { data: 'action', searchable: false, orderable: false }]);
     }
 

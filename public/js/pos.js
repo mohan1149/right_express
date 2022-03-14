@@ -14,11 +14,12 @@ $(document).ready(function () {
     //     }
     // });
     $('.save_tranasaction').on('click', () => {
-        let lang = document.documentElement.lang;
-        let dir = lang === "ar" ? "rtl" : "ltr";
+
         let today_brought = $('.brought_today_count').val();
         let net_total_avail = quota_left - today_brought;
         let total_used = subscription_pieces - net_total_avail;
+        console.log(subscription_pieces);
+        console.log(net_total_avail);
         $('.brought_today').text(today_brought);
         $('.net_available').text(net_total_avail);
         let cid = $('#customer_id').val();
@@ -53,37 +54,28 @@ $(document).ready(function () {
                 if (response === 0) {
                     alert('Data Not available');
                 } else {
-                    if (response.group_id === 1) {
-                        $('.pos_pod_list').show();
-                        //$('.pos_customer_subscripion_info').hide();
-                        $('.payment_panel').show();
+                    $('.pos_customer_subscripion_info').show();
+                    if (response.custom_field1 !== "0") {
+                        $('.subs_paid_badge').show();
+                        $('.subs_unpaid_badge').hide();
                     } else {
-                        // $('.pos_pod_list').hide();
-                        $('.pos_customer_subscripion_info').show();
-                        //$('.payment_panel').hide();
-                        if (response.custom_field1 === "on") {
-                            $('.subs_paid_badge').show();
-                            $('.subs_unpaid_badge').hide();
-                        } else {
-                            $('.subs_paid_badge').hide();
-                            $('.subs_unpaid_badge').show();
-                        }
-                        subscription_name = response.name;
-                        quota_used = response.custom_field2;
-                        quota_left = response.custom_field3;
-                        subscription_cost = response.subscription_cost;
-                        subscription_pieces = response.subscription_pieces;
-
-                        $('.subscription_name').text(subscription_name);
-                        $('.quota_used').text(quota_used);
-                        $('.quota_left').text(quota_left);
-                        $('.subscription_cost').text(subscription_cost);
-                        $('.subscription_pieces').text(subscription_pieces);
-
-                        $('.p_subscription_name').text(subscription_name);
-                        $('.p_subscription_cost').text(subscription_cost);
-                        $('.p_subscription_pieces').text(subscription_pieces);
+                        $('.subs_paid_badge').hide();
+                        $('.subs_unpaid_badge').show();
                     }
+                    quota_used = response.custom_field2;
+                    quota_left = response.custom_field3;
+                    subscription_cost = response.subscription_cost;
+                    subscription_pieces = response.custom_field1;
+
+                    $('.subscription_name').text("Right Express Membership");
+                    $('.quota_used').text(quota_used);
+                    $('.quota_left').text(quota_left);
+                    $('.subscription_cost').text(response.total_paid_value);
+                    $('.subscription_pieces').text(response.custom_field1);
+
+                    $('.p_subscription_name').text(subscription_name);
+                    $('.p_subscription_cost').text(subscription_cost);
+                    $('.p_subscription_pieces').text(subscription_pieces);
                 }
             })
 
@@ -96,11 +88,11 @@ $(document).ready(function () {
     });
     $('.renewCustomerSubscriptionPlan').on('click', () => {
         $("#ajaxModal").modal("show");
-        let paid_for_renewal = $('#paid_for_renewal')[0].checked;
+        let paid_for_renewal = $('#paid_for_renewal').val();
         let cid = $('#customer_id').val();
         let data = {
             cid: cid,
-            paid_for_renewal: paid_for_renewal ? "on" : "off",
+            paid_for_renewal: paid_for_renewal,
         }
         $.ajax({
             type: "POST",
