@@ -818,7 +818,7 @@ class TransactionUtil extends Util
         //Shop Contact Info
         $output['contact'] = '';
         if ($il->show_mobile_number == 1 && !empty($location_details->mobile)) {
-            $output['contact'] .= __('contact.mobile') . ': ' . $location_details->mobile;
+            $output['contact'] .= $location_details->mobile.'/'.$location_details;
         }
         if ($il->show_alternate_number == 1 && !empty($location_details->alternate_number)) {
             if (empty($output['contact'])) {
@@ -836,6 +836,7 @@ class TransactionUtil extends Util
 
         //Customer show_customer
         $customer = Contact::find($transaction->contact_id);
+        $output['contact'] = $location_details->mobile .'/'.$customer->landline;
         $output['current_balance'] = $customer->custom_field3;
         $output['customer_info'] = '';
         $output['customer_tax_number'] = '';
@@ -848,7 +849,7 @@ class TransactionUtil extends Util
             if (!empty($output['customer_name']) && $receipt_printer_type != 'printer') {
                 $output['customer_info'] .= $customer->landmark;
                 $output['customer_info'] .= ',' . implode(',', array_filter([$customer->city, $customer->state, $customer->country]));
-                $output['customer_info'] .= ',' . $customer->mobile;
+                //$output['customer_info'] .= ',' . $customer->mobile;
             }
             
             $output['customer_tax_number'] = $customer->tax_number;
