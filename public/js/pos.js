@@ -100,6 +100,7 @@ $(document).ready(function () {
             data: data,
             success: (response) => {
                 $("#ajaxModal").modal("hide");
+                alert('Membership Updated');
                 window.location.reload();
             },
             error: (error) => {
