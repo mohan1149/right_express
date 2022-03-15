@@ -1180,8 +1180,11 @@ class ContactController extends Controller
             $customer = Contact::where('id',$cid)->first();
             return Contact::where('id',$cid)
             ->update([
+                'custom_field1' => $check * (25 / 100) + $customer->custom_field3 + $check,
+                'custom_field2' => 0,
                 'custom_field3' => $check * (25 / 100) + $customer->custom_field3 + $check,
                 'renewal_count' => $customer->renewal_count + 1, 
+                'total_paid_value' => $check
             ]);
         }catch(\Exception $e){
             return response()->json($e->getMessage(), 200);

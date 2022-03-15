@@ -11,7 +11,7 @@
 				<h6>Delivery :: (+965) 66444477</h6>
 			</div>
 		</div>
-		<h5 style="text-align: center"><strong>{{ $receipt_details->invoice_no }}</strong></h5>
+		<h3 style="text-align: right"><strong>{{ $receipt_details->invoice_no }}</strong></h3>
 		<div class="row">
 			<div class="col-xs-6">
 				<table class="full-table">
@@ -155,7 +155,7 @@
 				<h6>Delivery :: (+965) 66444477</h6>
 			</div>
 		</div>
-		<h5 style="text-align: center"><strong>{{ $receipt_details->invoice_no }}</strong></h5>
+		<h3 style="text-align: right"><strong>{{ $receipt_details->invoice_no }}</strong></h3>
 		<div class="row">
 			<div class="col-xs-6">
 				<table class="full-table">
