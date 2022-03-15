@@ -42,7 +42,7 @@ class Util
         $num = str_replace($thousand_separator, '', $input_number);
         $num = str_replace($decimal_separator, '.', $num);
 
-        return (float)$num;
+        return (float) number_format($num,3) ;
     }
 
     /**
@@ -60,10 +60,10 @@ class Util
         $thousand_separator = !empty($business_details) ? $business_details->thousand_separator : session('currency')['thousand_separator'];
         $decimal_separator = !empty($business_details) ? $business_details->decimal_separator : session('currency')['decimal_separator'];
 
-        $currency_precision = config('constants.currency_precision', 2);
+        $currency_precision = config('constants.currency_precision', 3);
 
         if ($is_quantity) {
-            $currency_precision = config('constants.quantity_precision', 2);
+            $currency_precision = config('constants.quantity_precision', 3);
         }
 
         $formatted = number_format($input_number, $currency_precision, $decimal_separator, $thousand_separator);
