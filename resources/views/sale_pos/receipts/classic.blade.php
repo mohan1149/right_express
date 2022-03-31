@@ -83,7 +83,13 @@
 				</tr>
 			</thead>
 			<tbody>
+				@php
+					$qn=0;
+				@endphp
 				@forelse($receipt_details->lines as $line)
+				@php
+					$qn += $line['quantity'];
+				@endphp
 					<tr>
 						<td style="word-break: break-all;">
 							{{-- @if(!empty($line['image']))
@@ -103,7 +109,7 @@
                             {{-- @if(!empty($line['warranty_description'])) <small> {{$line['warranty_description'] ?? ''}}</small>@endif --}}
                         </td>
 						<td>{{ $line['variation'] }}</td>
-						<td>{{$line['quantity']}} {{$line['units']}} </td>
+						<td>{{$line['quantity']}} </td>
 						<td>{{$line['unit_price_inc_tax']}}</td>
 						<td>{{$line['line_total']}}</td>
 					</tr>
@@ -138,7 +144,7 @@
 					</tr>
 					<tr>
 						<td>Total Items</td>
-						<td>{{  count($receipt_details->lines) }}</td>
+						<td>{{  $qn  }}</td>
 					</tr>
 					{{-- <tr>
 						<td>Balance</td>
@@ -254,7 +260,7 @@
                             {{-- @if(!empty($line['warranty_description'])) <small> {{$line['warranty_description'] ?? ''}}</small>@endif --}}
                         </td>
 						<td>{{ $line['variation'] }}</td>
-						<td>{{$line['quantity']}} {{$line['units']}} </td>
+						<td>{{$line['quantity']}} </td>
 						<td>{{$line['unit_price_inc_tax']}}</td>
 						<td>{{$line['line_total']}}</td>
 					</tr>
@@ -289,7 +295,7 @@
 					</tr>
 					<tr>
 						<td>Total Items</td>
-						<td>{{  count($receipt_details->lines) }}</td>
+						<td>{{  $qn }}</td>
 					</tr>
 					{{-- <tr>
 						<td>Balance</td>
