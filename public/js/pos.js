@@ -62,16 +62,16 @@ $(document).ready(function () {
                         $('.subs_paid_badge').hide();
                         $('.subs_unpaid_badge').show();
                     }
-                    quota_used = response.custom_field2;
-                    quota_left = response.custom_field3;
-                    subscription_cost = response.subscription_cost;
-                    subscription_pieces = response.custom_field1;
+                    quota_used = parseFloat(response.custom_field2).toFixed(3);
+                    quota_left = parseFloat(response.custom_field3).toFixed(3);
+                    subscription_cost = parseFloat(response.subscription_cost).toFixed(3);
+                    subscription_pieces = parseFloat(response.custom_field1).toFixed(3);
 
                     $('.subscription_name').text("Right Express Membership");
                     $('.quota_used').text(quota_used);
                     $('.quota_left').text(quota_left);
-                    $('.subscription_cost').text(response.total_paid_value);
-                    $('.subscription_pieces').text(response.custom_field1);
+                    $('.subscription_cost').text( parseFloat(response.total_paid_value).toFixed(3));
+                    $('.subscription_pieces').text(parseFloat(response.custom_field1).toFixed(3));
 
                     $('.p_subscription_name').text(subscription_name);
                     $('.p_subscription_cost').text(subscription_cost);
