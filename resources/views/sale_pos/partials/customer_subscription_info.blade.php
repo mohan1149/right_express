@@ -43,7 +43,7 @@
         <div class="update_subscription">
             <div class="form-group">
                 <label for="">@lang('lang_v1.brought_today')</label>
-                <input class="form-control brought_today_count" type="text">
+                <input id="final_total_input" class="form-control brought_today_count" type="text">
             </div>
             <div class="form-group">
                 <input class="form-control btn btn-primary save_tranasaction" data-toggle="modal" data-target="#ajaxModal" type="submit" name="" id="" value="@lang('lang_v1.save')">  

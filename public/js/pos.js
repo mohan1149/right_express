@@ -13,6 +13,11 @@ $(document).ready(function () {
     //         $('.brought_today_count').focus();
     //     }
     // });
+
+    // const total_event = document.getElementById('final_total_input');
+    // total_event.addEventListener('change',()=>{
+    //     alert($("#final_total_input").val());
+    // })
     $('.save_tranasaction').on('click', () => {
 
         let today_brought = $('.brought_today_count').val();
