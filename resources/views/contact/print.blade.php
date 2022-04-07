@@ -19,7 +19,7 @@
     </tr>
     <tr>
         <td>
-            <h2>Customer Receipt - Membership</h2>
+            <h2>Office Receipt - Membership</h2>
             <h3>Piad Amount : {{ number_format($data->total_paid_value,3) }}</h3>
         </td>
         <td></td>
@@ -52,15 +52,15 @@
             <table style="width: 100%">
                 <tr>
                     <td>{{ __("lang_v1.start_balance") }}</td>
-                    <td>{{ $data->subscription_pieces }}</td>
+                    <td>{{ number_format($data->subscription_pieces,3) }}</td>
                 </tr>
                 <tr>
                     <td>{{ __("lang_v1.used_balance") }}</td>
-                    <td>{{ $data->custom_field2 }}</td>
+                    <td>{{ number_format($data->custom_field2,3) }}</td>
                 </tr>
                 <tr>
                     <td>{{ __("lang_v1.available_balance") }}</td>
-                    <td>{{ $data->custom_field3 }}</td>
+                    <td>{{ number_format($data->custom_field3,3) }}</td>
                 </tr>
             </table>
         </td>
@@ -84,15 +84,15 @@
             <table style="width: 100%">
                 <tr>
                     <td>{{ __("lang_v1.start_balance") }}</td>
-                    <td>{{ $data->subscription_pieces }}</td>
+                    <td>{{ number_format($data->subscription_pieces,3) }}</td>
                 </tr>
                 <tr>
                     <td>{{ __("lang_v1.used_balance") }}</td>
-                    <td>{{ $data->custom_field2 }}</td>
+                    <td>{{ number_format($data->custom_field2,3) }}</td>
                 </tr>
                 <tr>
                     <td>{{ __("lang_v1.available_balance") }}</td>
-                    <td>{{ $data->custom_field3 }}</td>
+                    <td>{{ number_format($data->custom_field3,3) }}</td>
                 </tr>
             </table>
         </td>
