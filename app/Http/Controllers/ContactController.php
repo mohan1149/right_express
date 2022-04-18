@@ -1160,12 +1160,16 @@ class ContactController extends Controller
     public function updateCustomerSubscriptionInfo(Request $request){
         try{
             $cid = $request['cid'];
+            $tid = $request['tid'];
             $total_used = number_format($request['total_used'],3);
             $total_avil = number_format($request['net_total_avail'],3);
             $response = Contact::where('contacts.id',$cid)
             ->update([
                 'custom_field2'=>$total_used,
                 'custom_field3'=>$total_avil,
+            ]);
+            DB::table('transaction_payments')->where('transaction_id',$tid)->update([
+                'method'=>"card",
             ]);
             return $response;
         }catch(\Exception $e){

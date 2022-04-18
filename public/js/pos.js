@@ -19,38 +19,10 @@ $(document).ready(function () {
     //     alert($("#final_total_input").val());
     // })
     $('.save_tranasaction').on('click', () => {
-
-        let today_brought = $('.brought_today_count').val();
-        let net_total_avail = quota_left - today_brought;
-        let total_used = subscription_pieces - net_total_avail;
-        console.log(subscription_pieces);
-        console.log(net_total_avail);
-        $('.brought_today').text(today_brought);
-        $('.net_available').text(net_total_avail);
-        let cid = $('#customer_id').val();
-        let data = {
-            cid: cid,
-            net_total_avail: net_total_avail,
-            total_used: total_used,
+        localStorage.setItem('trans_type','mem');
+        if (!$('table#pos_table tbody').find('.product_row').length <= 0) {
+            pos_form_obj.submit();
         }
-        $.ajax({
-            type: "POST",
-            url: '/api/updateCustomerSubscriptionInfo',
-            data: data,
-            success: (response) => {
-                $("#ajaxModal").modal("hide");
-                if (!$('table#pos_table tbody').find('.product_row').length <= 0) {
-                    pos_form_obj.submit();
-                } else {
-                    pos_print(print_content);
-                }
-            },
-            error: (error) => {
-                console.log(error);
-                $("#ajaxModal").modal("hide");
-                alert('Something went wrong');
-            }
-        });
     });
     $('#customer_id').on('change', () => {
         let cid = $('#customer_id').val();
@@ -831,6 +803,33 @@ $(document).ready(function () {
             pos_form_obj.submit();
         });
     });
+    function updatMembership(tid){
+        let today_brought = $('.brought_today_count').val();
+        let net_total_avail = quota_left - today_brought;
+        let total_used = subscription_pieces - net_total_avail;
+        $('.brought_today').text(today_brought);
+        $('.net_available').text(net_total_avail);
+        let cid = $('#customer_id').val();
+        let data = {
+            cid: cid,
+            tid:tid,
+            net_total_avail: net_total_avail,
+            total_used: total_used,
+        }
+        $.ajax({
+            type: "POST",
+            url: '/api/updateCustomerSubscriptionInfo',
+            data: data,
+            success: (response) => {
+                $("#ajaxModal").modal("hide");
+            },
+            error: (error) => {
+                console.log(error);
+                $("#ajaxModal").modal("hide");
+                alert('Something went wrong');
+            }
+        });
+    }
     function performOutsideOrder(tid) {
         $('#outside_order_trans_id').val(tid);
         let data = $('form#add_outside_order_form').serialize();
@@ -1245,16 +1244,18 @@ $(document).ready(function () {
                     success: function (result) {
                         if (result.success == 1) {
                             $('#modal_payment').modal('hide');
-                            if (localStorage.getItem('trans_type') === 'OUTSIDE') {
-                                performOutsideOrder(result.transaction);
+                            if (localStorage.getItem('trans_type') === 'mem') {
+                                updatMembership(result.transaction);
+                                reset_pos_form();
+                                pos_print(result.receipt);
                                 get_recent_transactions('final', $('div#tab_final'));
                             } else {
-                                toastr.success(result.msg);
-                                reset_pos_form();
-                                if (result.receipt.is_enabled) {
-                                    pos_print(result.receipt);
-                                }
-                                get_recent_transactions('final', $('div#tab_final'));
+                                // toastr.success(result.msg);
+                                // reset_pos_form();
+                                // if (result.receipt.is_enabled) {
+                                //     pos_print(result.receipt);
+                                // }
+                                // get_recent_transactions('final', $('div#tab_final'));
                             }
 
                         } else {
