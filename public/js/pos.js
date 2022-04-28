@@ -19,7 +19,7 @@ $(document).ready(function () {
     //     alert($("#final_total_input").val());
     // })
     $('.save_tranasaction').on('click', () => {
-        localStorage.setItem('trans_type','mem');
+        localStorage.setItem('trans_type', 'mem');
         if (!$('table#pos_table tbody').find('.product_row').length <= 0) {
             pos_form_obj.submit();
         }
@@ -28,10 +28,17 @@ $(document).ready(function () {
         let cid = $('#customer_id').val();
         if (cid !== '1') {
             $.getJSON("/api/get/customer-subscription-details/" + cid, (response) => {
-                if (response === 0) {
-                    alert('Data Not available');
+                if (response.customer_group_id === null) {
+                    $("#payment_status").val('due');
+                    $('.pos_customer_subscripion_info').hide();
+                    $('.customer-type').removeClass('show');
+                    $('.customer-type').addClass('hidden');
                 } else {
                     $('.pos_customer_subscripion_info').show();
+                    $('.customer-type').removeClass('hidden');
+                    $('.customer-type').addClass('show');
+                    $('.customer-type').text('Member');
+                    
                     if (response.custom_field1 !== "0") {
                         $('.subs_paid_badge').show();
                         $('.subs_unpaid_badge').hide();
@@ -39,6 +46,7 @@ $(document).ready(function () {
                         $('.subs_paid_badge').hide();
                         $('.subs_unpaid_badge').show();
                     }
+                    $("#payment_status").val('paid');
                     quota_used = parseFloat(response.custom_field2).toFixed(3);
                     quota_left = parseFloat(response.custom_field3).toFixed(3);
                     subscription_cost = parseFloat(response.subscription_cost).toFixed(3);
@@ -47,13 +55,14 @@ $(document).ready(function () {
                     $('.subscription_name').text("Right Express Membership");
                     $('.quota_used').text(quota_used);
                     $('.quota_left').text(quota_left);
-                    $('.subscription_cost').text( parseFloat(response.total_paid_value).toFixed(3));
+                    $('.subscription_cost').text(parseFloat(response.total_paid_value).toFixed(3));
                     $('.subscription_pieces').text(parseFloat(response.custom_field1).toFixed(3));
 
                     $('.p_subscription_name').text(subscription_name);
                     $('.p_subscription_cost').text(subscription_cost);
                     $('.p_subscription_pieces').text(subscription_pieces);
                 }
+
             })
 
         }
@@ -803,7 +812,7 @@ $(document).ready(function () {
             pos_form_obj.submit();
         });
     });
-    function updatMembership(tid){
+    function updatMembership(tid) {
         let today_brought = $('.brought_today_count').val();
         let net_total_avail = quota_left - today_brought;
         let total_used = subscription_pieces - net_total_avail;
@@ -812,7 +821,7 @@ $(document).ready(function () {
         let cid = $('#customer_id').val();
         let data = {
             cid: cid,
-            tid:tid,
+            tid: tid,
             net_total_avail: net_total_avail,
             total_used: total_used,
         }

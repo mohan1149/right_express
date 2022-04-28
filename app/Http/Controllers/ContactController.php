@@ -1148,6 +1148,7 @@ class ContactController extends Controller
                     'contacts.custom_field1',
                     'contacts.custom_field2',
                     'contacts.custom_field3',
+                    'contacts.customer_group_id',
                     'total_paid_value'
                 ])
                 ->first();

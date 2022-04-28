@@ -133,6 +133,9 @@
 							</div>
 							<div class="modal fade types_of_service_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel"></div>
 						@endif
+						<div class="col-md-4 col-sm-6">
+							<span class="customer-type hidden"></span>
+						</div>
 
 						@if(in_array('subscription', $enabled_modules))
 							<div class="col-md-4 pull-right col-sm-6">
