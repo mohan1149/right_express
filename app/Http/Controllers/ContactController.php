@@ -1185,6 +1185,7 @@ class ContactController extends Controller
             $customer = Contact::where('id',$cid)->first();
             DB::table('customer_renews')->insert([
                 'cid'=>$cid,
+                'renewed_on'=> date('Y-m-d'),
                 'renewed_amount'=> $check,
             ]);
             return Contact::where('id',$cid)
