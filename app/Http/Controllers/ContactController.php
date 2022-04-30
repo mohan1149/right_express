@@ -1183,6 +1183,10 @@ class ContactController extends Controller
             $cid = $request['cid'];
             $check = $request['paid_for_renewal'];
             $customer = Contact::where('id',$cid)->first();
+            DB::table('customer_renews')->insert([
+                'cid'=>$cid,
+                'renewed_amount'=> $check,
+            ]);
             return Contact::where('id',$cid)
             ->update([
                 'custom_field1' => $check * (25 / 100) + $customer->custom_field3 + $check,
@@ -1191,6 +1195,7 @@ class ContactController extends Controller
                 'renewal_count' => $customer->renewal_count + 1, 
                 'total_paid_value' => $check
             ]);
+            
         }catch(\Exception $e){
             return response()->json($e->getMessage(), 200);
         }
@@ -1212,6 +1217,39 @@ class ContactController extends Controller
         ], 200);
         }catch(\Exception $e){
             return  response()->json(['success'=>false,'msg'=>$e->getMessage()], 200);
+        }
+    }
+
+    public function membershipRenews(Request $request){
+        try{
+            
+            if (!auth()->user()->can('customer.view')) {
+                abort(403, 'Unauthorized action.');
+            }
+                $s_date = $request['s_date'];
+                $e_date = $request['e_date'];
+                if( $s_date !="" && $e_date !== "" ){
+                    $customers = DB::table('customer_renews')
+                        ->join('contacts','contacts.id','=','customer_renews.cid')
+                        ->whereBetween('renewed_on',[$s_date, $e_date])
+                        ->get();
+                }else{
+                    $customers = DB::table('customer_renews')
+                    ->join('contacts','contacts.id','=','customer_renews.cid')
+                    ->get();
+                }
+                if (request()->ajax()) {
+                    return Datatables::of($customers)
+                        ->editColumn(
+                            'renewed_amount',
+                            '<span class="display_currency renewed_amount" data-currency_symbol="true" data-orig-value="{{$renewed_amount}}">{{ number_format($renewed_amount,3) }}</span>'
+                        )
+                        ->rawColumns(['renewed_amount'])
+                        ->make(true);
+                }
+            return view('contact.renews');
+        }catch(\Exception $e){
+            return $e->getMessage();
         }
     }
 }

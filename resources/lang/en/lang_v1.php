@@ -1030,6 +1030,8 @@ return [
     "available_balance"=>"Current Balance",
     "not_done"=>"Not Done",
     "done"=>"Done",
-    "res_order_status"=>"Status"
+    "res_order_status"=>"Status",
+    "renews"=>"Membership Renewls",
+    "total"=>"Total"
 
 ];

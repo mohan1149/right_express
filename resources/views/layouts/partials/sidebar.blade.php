@@ -108,6 +108,7 @@
                 <li class="{{ $request->input('type') == 'customer' ? 'active' : '' }}"><a href="{{action('ContactController@index', ['type' => 'customer'])}}"><i class="fa fa-star"></i> @lang('report.customer')</a></li>
                 <li class="{{ $request->input('type') == 'regular' ? 'active' : '' }}"><a href="{{action('ContactController@index', ['type' => 'regular'])}}"><i class="fa fa-star"></i> @lang('lang_v1.regular_customer')</a></li>
                 <li class="{{ $request->segment(1) == 'customer-group' ? 'active' : '' }}"><a href="{{action('CustomerGroupController@index')}}"><i class="fa fa-users"></i> @lang('lang_v1.customer_groups')</a></li>
+                <li class="{{ $request->segment(1) == 'renews' ? 'active' : '' }}"><a href="/renews"><i class="fa fa-users"></i> @lang('lang_v1.renews')</a></li>                
               @endcan
 
               @if(auth()->user()->can('supplier.create') || auth()->user()->can('customer.create') )
