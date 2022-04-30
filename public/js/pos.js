@@ -19,9 +19,8 @@ $(document).ready(function () {
     //     alert($("#final_total_input").val());
     // })
     $('.save_tranasaction').on('click', () => {
-        localStorage.setItem('trans_type', 'mem');
         if (!$('table#pos_table tbody').find('.product_row').length <= 0) {
-            pos_form_obj.submit();
+            updatMembership();
         }
     });
     $('#customer_id').on('change', () => {
@@ -812,7 +811,8 @@ $(document).ready(function () {
             pos_form_obj.submit();
         });
     });
-    function updatMembership(tid) {
+    function updatMembership() {
+        localStorage.setItem('trans_type', 'mem');
         let today_brought = $('.brought_today_count').val();
         let net_total_avail = quota_left - today_brought;
         let total_used = subscription_pieces - net_total_avail;
@@ -821,7 +821,6 @@ $(document).ready(function () {
         let cid = $('#customer_id').val();
         let data = {
             cid: cid,
-            tid: tid,
             net_total_avail: net_total_avail,
             total_used: total_used,
         }
@@ -831,9 +830,9 @@ $(document).ready(function () {
             data: data,
             success: (response) => {
                 $("#ajaxModal").modal("hide");
+                pos_form_obj.submit();
             },
             error: (error) => {
-                console.log(error);
                 $("#ajaxModal").modal("hide");
                 alert('Something went wrong');
             }
@@ -1224,6 +1223,7 @@ $(document).ready(function () {
 
     pos_form_validator = pos_form_obj.validate({
         submitHandler: function (form) {
+            console.log(form);
             // var total_payble = __read_number($('input#final_total_input'));
             // var total_paying = __read_number($('input#total_paying_input'));
             var cnf = true;
@@ -1238,12 +1238,14 @@ $(document).ready(function () {
                 // 	cnf = false;
                 // }
             }
-
             if (cnf) {
                 $('div.pos-processing').show();
                 $('#pos-save').attr('disabled', 'true');
                 var data = $(form).serialize();
                 data = data + '&status=final';
+                if (localStorage.getItem('trans_type') === 'mem') {
+                    data = data.replace('cash', 'card');
+                }
                 var url = $(form).attr('action');
                 $.ajax({
                     method: 'POST',
@@ -1253,20 +1255,9 @@ $(document).ready(function () {
                     success: function (result) {
                         if (result.success == 1) {
                             $('#modal_payment').modal('hide');
-                            if (localStorage.getItem('trans_type') === 'mem') {
-                                updatMembership(result.transaction);
-                                reset_pos_form();
-                                pos_print(result.receipt);
-                                get_recent_transactions('final', $('div#tab_final'));
-                            } else {
-                                // toastr.success(result.msg);
-                                // reset_pos_form();
-                                // if (result.receipt.is_enabled) {
-                                //     pos_print(result.receipt);
-                                // }
-                                // get_recent_transactions('final', $('div#tab_final'));
-                            }
-
+                            reset_pos_form();
+                            pos_print(result.receipt);
+                            get_recent_transactions('final', $('div#tab_final'));
                         } else {
                             toastr.error(result.msg);
                         }
