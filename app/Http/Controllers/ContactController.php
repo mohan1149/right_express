@@ -1182,10 +1182,11 @@ class ContactController extends Controller
         try{
             $cid = $request['cid'];
             $check = $request['paid_for_renewal'];
+            $renewed = $request['renewed'];
             $customer = Contact::where('id',$cid)->first();
             DB::table('customer_renews')->insert([
                 'cid'=>$cid,
-                'renewed_on'=> date('Y-m-d'),
+                'renewed_on'=> $renewed,
                 'renewed_amount'=> $check,
             ]);
             return Contact::where('id',$cid)
@@ -1223,7 +1224,6 @@ class ContactController extends Controller
 
     public function membershipRenews(Request $request){
         try{
-            
             if (!auth()->user()->can('customer.view')) {
                 abort(403, 'Unauthorized action.');
             }

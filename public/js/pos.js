@@ -75,9 +75,12 @@ $(document).ready(function () {
         $("#ajaxModal").modal("show");
         let paid_for_renewal = $('#paid_for_renewal').val();
         let cid = $('#customer_id').val();
+        let date = new Date();
+        let renewed = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
         let data = {
             cid: cid,
             paid_for_renewal: paid_for_renewal,
+            renewed: renewed,
         }
         $.ajax({
             type: "POST",
