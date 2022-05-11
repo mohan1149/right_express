@@ -532,6 +532,8 @@ class SellPosController extends Controller
                 $input['selling_price_group_id'] = $price_group_id;
 
                 $transaction = $this->transactionUtil->createSellTransaction($business_id, $input, $invoice_total, $user_id);
+                $transaction->customer_balance = $request['cb'];
+                $transaction->save();
                 //subscription
                 if( $subscription_id!=null){
                     $transaction->subscription_id = $subscription_id;

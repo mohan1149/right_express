@@ -5,7 +5,7 @@ $(document).ready(function () {
     let quota_left = 0;
     let subscription_cost = 0;
     let subscription_pieces = 0;
-
+    let current_balance = 0;
     // $('.brought_today_count').on('keyup', () => {
     //     if (parseInt($('.brought_today_count').val()) > quota_left) {
     //         alert("Customer don't have enough subscription plan");
@@ -37,7 +37,7 @@ $(document).ready(function () {
                     $('.customer-type').removeClass('hidden');
                     $('.customer-type').addClass('show');
                     $('.customer-type').text('Member');
-                    
+
                     if (response.custom_field1 !== "0") {
                         $('.subs_paid_badge').show();
                         $('.subs_unpaid_badge').hide();
@@ -69,6 +69,7 @@ $(document).ready(function () {
             $('.pos_pod_list').show();
             $('.pos_customer_subscripion_info').hide();
             $('.payment_panel').show();
+            current_balance = 0;
         }
     });
     $('.renewCustomerSubscriptionPlan').on('click', () => {
@@ -76,7 +77,7 @@ $(document).ready(function () {
         let paid_for_renewal = $('#paid_for_renewal').val();
         let cid = $('#customer_id').val();
         let date = new Date();
-        let renewed = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+        let renewed = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         let data = {
             cid: cid,
             paid_for_renewal: paid_for_renewal,
@@ -832,6 +833,9 @@ $(document).ready(function () {
             url: '/api/updateCustomerSubscriptionInfo',
             data: data,
             success: (response) => {
+                if (response.status) {
+                    current_balance = response.data;
+                }
                 $("#ajaxModal").modal("hide");
                 pos_form_obj.submit();
             },
@@ -1226,7 +1230,6 @@ $(document).ready(function () {
 
     pos_form_validator = pos_form_obj.validate({
         submitHandler: function (form) {
-            console.log(form);
             // var total_payble = __read_number($('input#final_total_input'));
             // var total_paying = __read_number($('input#total_paying_input'));
             var cnf = true;
@@ -1246,6 +1249,7 @@ $(document).ready(function () {
                 $('#pos-save').attr('disabled', 'true');
                 var data = $(form).serialize();
                 data = data + '&status=final';
+                data = data + '&cb=' + current_balance;
                 if (localStorage.getItem('trans_type') === 'mem') {
                     data = data.replace('cash', 'card');
                 }
