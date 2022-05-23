@@ -5,10 +5,10 @@
 			<div class="col-xs-6">
 				<img src="/img/default.png" style="width: 75%">
 			</div>
-			<div class="col-xs-6">
-				<h6>Kaifan, Block -2, Kifan Commercial Complex</h6>
-				<h6>Tel :: (+965) 29415416</h6>
-				<h6>Delivery :: (+965) 66444477</h6>
+			<div class="col-xs-6">  
+				<h6>Kaifan , Block 2  داخل مجمع كيفان التجاري</h6>
+				<h6>Tel :: (+965) 66444477</h6>
+				<h6>Delivery :: (+965) 95590633</h6>
 			</div>
 		</div>
 		<h3 style="text-align: right"><strong>{{ $receipt_details->invoice_no }}</strong></h3>
@@ -153,6 +153,13 @@
 				</table>
 			</div>
 		</div>
+		<div class="row">
+			<br>
+			<ul style="text-align: right;list-style: none;margin-right:20px;">
+				<li style="text-align: right"> المصبغة غير مسؤول عن الملابس التي لاتطلب خلال (30) يوم .</li>
+				<li style="text-align: right"> المصبغة غير مسؤولة عن التلفيات اذا لم يتم التبليغ عنها بعد 48 ساعه من الاستلام </li>
+			</ul> 
+		</div>
 
 	</div>
 	{{-- shop receipt --}}
@@ -162,9 +169,9 @@
 				<img src="/img/default.png" style="width: 75%">
 			</div>
 			<div class="col-xs-6">
-				<h6>Kaifan, Block -2, Kifan Commercial Complex</h6>
-				<h6>Tel :: (+965) 29415416</h6>
-				<h6>Delivery :: (+965) 66444477</h6>
+				<h6>Kaifan , Block 2  داخل مجمع كيفان التجاري</h6>
+				<h6>Tel :: (+965) 66444477</h6>
+				<h6>Delivery :: (+965) 95590633</h6>
 			</div>
 		</div>
 		<h3 style="text-align: right"><strong>{{ $receipt_details->invoice_no }}</strong></h3>
@@ -303,6 +310,13 @@
 					</tr> --}}
 				</table>
 			</div>
+		</div>
+		<div class="row">
+			<br>
+			<ul style="text-align: right;list-style: none;margin-right:20px;">
+				<li style="text-align: right"> المصبغة غير مسؤول عن الملابس التي لاتطلب خلال (30) يوم .</li>
+				<li style="text-align: right"> المصبغة غير مسؤولة عن التلفيات اذا لم يتم التبليغ عنها بعد 48 ساعه من الاستلام </li>
+			</ul> 
 		</div>
 	</div>
 </div>
