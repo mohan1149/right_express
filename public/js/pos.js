@@ -6,18 +6,6 @@ $(document).ready(function () {
     let subscription_cost = 0;
     let subscription_pieces = 0;
     let current_balance = 0;
-    // $('.brought_today_count').on('keyup', () => {
-    //     if (parseInt($('.brought_today_count').val()) > quota_left) {
-    //         alert("Customer don't have enough subscription plan");
-    //         $('.brought_today_count').val(0);
-    //         $('.brought_today_count').focus();
-    //     }
-    // });
-
-    // const total_event = document.getElementById('final_total_input');
-    // total_event.addEventListener('change',()=>{
-    //     alert($("#final_total_input").val());
-    // })
     $('.save_tranasaction').on('click', () => {
         if (!$('table#pos_table tbody').find('.product_row').length <= 0) {
             updatMembership();
@@ -32,7 +20,9 @@ $(document).ready(function () {
                     $('.pos_customer_subscripion_info').hide();
                     $('.customer-type').removeClass('show');
                     $('.customer-type').addClass('hidden');
+                    $('.pos-express-finalize').show();
                 } else {
+                    $('.pos-express-finalize').hide();
                     $('.pos_customer_subscripion_info').show();
                     $('.customer-type').removeClass('hidden');
                     $('.customer-type').addClass('show');
@@ -1261,6 +1251,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     success: function (result) {
                         if (result.success == 1) {
+                            localStorage.removeItem('trans_type');
                             $('#modal_payment').modal('hide');
                             reset_pos_form();
                             pos_print(result.receipt);
