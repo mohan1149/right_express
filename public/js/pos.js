@@ -21,6 +21,7 @@ $(document).ready(function () {
                     $('.customer-type').removeClass('show');
                     $('.customer-type').addClass('hidden');
                     $('.pos-express-finalize').show();
+                    localStorage.removeItem('trans_type');
                 } else {
                     $('.pos-express-finalize').hide();
                     $('.pos_customer_subscripion_info').show();
@@ -36,6 +37,7 @@ $(document).ready(function () {
                         $('.subs_unpaid_badge').show();
                     }
                     $("#payment_status").val('paid');
+                    localStorage.setItem('trans_type','mem');
                     quota_used = parseFloat(response.custom_field2).toFixed(3);
                     quota_left = parseFloat(response.custom_field3).toFixed(3);
                     subscription_cost = parseFloat(response.subscription_cost).toFixed(3);
@@ -59,7 +61,9 @@ $(document).ready(function () {
             $('.pos_pod_list').show();
             $('.pos_customer_subscripion_info').hide();
             $('.payment_panel').show();
+            $('.pos-express-finalize').show();
             current_balance = 0;
+            localStorage.removeItem('trans_type');
         }
     });
     $('.renewCustomerSubscriptionPlan').on('click', () => {
