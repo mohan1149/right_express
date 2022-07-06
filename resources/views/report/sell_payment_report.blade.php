@@ -72,6 +72,7 @@
                                 <th>@lang('sale.amount')</th>
                                 <th>@lang('contact.customer')</th>
                                 <th>@lang('lang_v1.payment_method')</th>
+                                <th>@lang('lang_v1.status')</th>
                                 <th>@lang('sale.sale')</th>
                                 <th>@lang('messages.action')</th>
                             </tr>

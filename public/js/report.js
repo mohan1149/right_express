@@ -1038,6 +1038,7 @@ $(document).ready(function() {
             { data: 'amount', name: 'transaction_payments.amount' },
             { data: 'customer', orderable: false, searchable: false },
             { data: 'method', name: 'method' },
+            { data: 'status', name: 'status' },
             { data: 'invoice_no', name: 't.invoice_no' },
             { data: 'action', orderable: false, searchable: false },
         ],
