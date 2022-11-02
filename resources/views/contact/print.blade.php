@@ -20,14 +20,15 @@
     <tr>
         <td>
             <h2>Office Receipt - Membership</h2>
-            <h3>Piad Amount : {{ number_format($data->total_paid_value,3) }}</h3>
+            <h3>Paid Amount : {{ number_format($data->total_paid_value,3) }}</h3>
         </td>
         <td></td>
         <td>
             <h2>Customer Receipt - Membership</h2>
-            <h3>Piad Amount : {{ number_format($data->total_paid_value,3) }}</h3>
+            <h3>Paid Amount : {{ number_format($data->total_paid_value,3) }}</h3>
         </td>
-        <td></td>
+        <td>
+        </td>
     </tr>
 </table>
 <table class="main">
@@ -45,6 +46,10 @@
                 <tr>
                     <td>{{ __("lang_v1.contact") }}</td>
                     <td>{{ $data->mobile }}</td>
+                </tr>
+                <tr>
+                    <td>{{ __("lang_v1.member_from") }}</td>
+                    <td>{{ $from_date }}</td>
                 </tr>
             </table>
         </td>
@@ -77,6 +82,10 @@
                 <tr>
                     <td>{{ __("lang_v1.contact") }}</td>
                     <td>{{ $data->mobile }}</td>
+                </tr>
+                <tr>
+                    <td>{{ __("lang_v1.member_from") }}</td>
+                    <td>{{ $from_date }}</td>
                 </tr>
             </table>
         </td>

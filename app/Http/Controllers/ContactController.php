@@ -246,7 +246,7 @@ class ContactController extends Controller
                             ])
                         ->groupBy('contacts.id');
             $contacts = Datatables::of($query)
-                ->addColumn('address', '{{implode(array_filter([$custom_field4,$city,$state,$country,$landmark]), ", ")}}')
+                ->addColumn('address', '{{implode( ", ",array_filter([$custom_field4,$city,$state,$country,$landmark]))}}')
                 // ->addColumn(
                 //     'due',
                 //     '<span class="display_currency contact_due" data-orig-value="{{$total_invoice - $invoice_received}}" data-currency_symbol=true data-highlight=true>{{($total_invoice - $invoice_received)}}</span>'
@@ -1205,6 +1205,7 @@ class ContactController extends Controller
 
     public function printMembership($id){
         try{
+            
             $contact = Contact::join('customer_groups as cg','cg.id','=','contacts.customer_group_id')
             ->where('contacts.id',$id)
             ->select([
@@ -1212,7 +1213,12 @@ class ContactController extends Controller
                 'cg.subscription_pieces',
             ])
             ->first();
-            $content = view('contact.print',['data'=>$contact])->render();
+            $from_date = $contact->created_at;
+            $memfrom = DB::table('customer_renews')->where('cid',$id)->first();
+            if($memfrom != null && isset($memfrom)){
+                $from_date = $memfrom->renewed_on;
+            }
+            $content = view('contact.print',['data'=>$contact,'from_date'=>$from_date])->render();
             return  response()->json([
                 'success'=>true,
                 'html_content'=>$content,
