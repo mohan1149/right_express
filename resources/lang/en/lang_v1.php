@@ -1032,6 +1032,7 @@ return [
     "done"=>"Done",
     "res_order_status"=>"Status",
     "renews"=>"Membership Renewls",
-    "total"=>"Total"
+    "total"=>"Total",
+    "member_from"=>'From'
 
 ];
