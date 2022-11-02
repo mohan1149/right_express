@@ -66,6 +66,7 @@ Route::middleware(['IsInstalled', 'auth', 'SetSessionData', 'language', 'timezon
     Route::post('/contacts/import', 'ContactController@postImportContacts');
     Route::post('/contacts/check-contact-id', 'ContactController@checkContactId');
     Route::get('/contacts/customers', 'ContactController@getCustomers');
+    Route::get('/renews', 'ContactController@membershipRenews');
     
     //mohan 12/5/2021
     Route::get('/customer-membership/print/{id}','ContactController@printMembership');

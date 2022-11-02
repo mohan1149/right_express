@@ -64,7 +64,7 @@ function __currency_trans_from_en(
     input,
     show_symbol = true,
     use_page_currency = false,
-    precision = __currency_precision,
+    precision = 3,
     is_quantity = false
 ) {
     if (use_page_currency && __p_currency_symbol) {
@@ -117,7 +117,7 @@ function __currency_convert_recursively(element, use_page_currency = false) {
             show_symbol = false;
         }
 
-        $(this).text(__currency_trans_from_en(value, show_symbol, use_page_currency, __currency_precision, is_quantity));
+        $(this).text(__currency_trans_from_en(value, show_symbol, use_page_currency, 3, is_quantity));
     });
 }
 
@@ -159,7 +159,7 @@ function __number_f(
     input,
     show_symbol = false,
     use_page_currency = false,
-    precision = __currency_precision
+    precision = 3
 ) {
     return __currency_trans_from_en(input, show_symbol, use_page_currency, precision);
 }
@@ -174,7 +174,7 @@ function __write_number(
     input_element,
     value,
     use_page_currency = false,
-    precision = __currency_precision
+    precision = 3
 ) {
     if(input_element.hasClass('input_quantity')) {
         precision = __quantity_precision;

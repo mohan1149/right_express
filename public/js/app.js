@@ -544,6 +544,42 @@ $(document).ready(function () {
         //     __currency_convert_recursively($('#contact_table'));
         // },
     });
+    
+    var renews_table_columns = [
+        { data: 'name', name: 'name' },
+        { data: 'mobile', name: 'mobile' },
+        { data: 'renewed_amount', name: 'renewed_amount' },
+        { data: 'renewed_on', name: 'renewed_on' },
+    ];
+    $('.renews_list_filter_date_range').daterangepicker(
+        dateRangeSettings,
+        function (start, end) {
+            $('.renews_list_filter_date_range').val(start.format(moment_date_format) + ' ~ ' + end.format(moment_date_format));
+            renews_table.ajax.reload();
+        }
+    );
+    var renews_table = $('#renews').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '/renews',
+            data: function (d) {
+                var start = $('.renews_list_filter_date_range').data('daterangepicker').startDate.format('YYYY-MM-DD');
+                var end = $('.renews_list_filter_date_range').data('daterangepicker').endDate.format('YYYY-MM-DD');
+                d.s_date = start;
+                d.e_date = end;
+                return d;
+            }
+        },
+
+        columns: renews_table_columns,
+        fnDrawCallback: function(oSettings) {
+            var total_due = sum_table_col($('#renews'), 'renewed_amount');
+            $('#footer_renews_total').text(total_due.toFixed(3));
+        },
+    });
+    
+    
 
     $('.driver_modal').on('shown.bs.modal', function (e) {
         $('#add_driver_form,#update_driver_form').on('submit', (e) => {
@@ -953,10 +989,10 @@ $(document).ready(function () {
             { data: 'address', name: 'address', orderable: false },
             { data: 'mobile', name: 'mobile' },
             { data: 'total_paid_value', name: 'total_paid_value' },
-            { data: 'subscription_pieces', name: 'cg.subscription_pieces' },
+            { data: 'custom_field1', name: 'custom_field1' },
             { data: 'custom_field2', name: 'custom_field2' },
             { data: 'custom_field3', name: 'custom_field3' },
-            { data: 'custom_field1', name: 'custom_field1' },
+            { data: 'status', name: 'status' },
             { data: 'action', searchable: false, orderable: false }]);
     }
 

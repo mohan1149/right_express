@@ -234,20 +234,7 @@
       <div class="col-md-12">
         <hr/>
       </div>
-      <div class="col-md-3">
-        <div class="form-group">
-            <label for="custom_field1">{{__('lang_v1.contact_custom_field1')}}</label>
-            <input 
-              type="checkbox" 
-              {{ $contact->custom_field1 == 'on' ? "checked disabled" : "" }}
-              name="custom_field1" 
-              id="custom_field1"
-            >
-            {{-- {!! Form::label('',  . ':') !!}
-            {!! Form::checkbox('', , ['class' => 'form-control', 
-                'placeholder' => __('lang_v1.contact_custom_field1')]); !!} --}}
-        </div>
-      </div>
+      
       {{-- <div class="col-md-3">
         <div class="form-group">
             {!! Form::label('custom_field2', __('lang_v1.contact_custom_field2') . ':') !!}

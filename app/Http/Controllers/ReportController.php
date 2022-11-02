@@ -2662,6 +2662,7 @@ class ReportController extends Controller
                     'transaction_payments.amount',
                     'transaction_payments.is_return',
                     'method',
+                    't.payment_status as status',
                     'paid_on',
                     'transaction_payments.payment_ref_no',
                     'transaction_payments.document',

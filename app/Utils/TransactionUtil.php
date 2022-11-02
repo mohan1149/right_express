@@ -836,8 +836,8 @@ class TransactionUtil extends Util
 
         //Customer show_customer
         $customer = Contact::find($transaction->contact_id);
-        $output['contact'] = $location_details->mobile .'/'.$customer->landline;
-        $output['current_balance'] = $customer->custom_field3;
+        $output['contact'] = $customer->mobile .'/'.$customer->landline;
+        $output['current_balance'] = $transaction->customer_balance;
         $output['customer_info'] = '';
         $output['customer_tax_number'] = '';
         $output['customer_tax_label'] = '';
