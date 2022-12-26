@@ -61,7 +61,7 @@ class ReportController extends Controller
         $transactions = DB::table('transactions')
             ->where('business_id',$business_id)
             ->select(['invoice_no','final_total','updated_at'])
-            ->whereDate('updated_at', '=', date('Y-m-d'))
+            ->whereDate('created_at', '=', date('Y-m-d'))
             ->get();
         if (request()->ajax()) {
             return Datatables::of($transactions)
