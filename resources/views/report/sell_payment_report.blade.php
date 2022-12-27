@@ -49,6 +49,17 @@
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
+                        {!! Form::label('payment_types', __('Payment Status').':') !!}
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="fa fa-money"></i>
+                            </span>
+                            {!! Form::select('payment_status', ['paid'=>'Paid','due'=>'Due','partial'=>'Partial'], null, ['class' => 'form-control select2','id'=>'payment_status', 'placeholder' => __('messages.please_select'), 'required']); !!}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
 
                         {!! Form::label('spr_date_filter', __('report.date_range') . ':') !!}
                         {!! Form::text('date_range', null, ['placeholder' => __('lang_v1.select_a_date_range'), 'class' => 'form-control', 'id' => 'spr_date_filter', 'readonly']); !!}

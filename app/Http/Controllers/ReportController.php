@@ -2663,6 +2663,7 @@ class ReportController extends Controller
                     'transaction_payments.is_return',
                     'method',
                     't.payment_status as status',
+                    't.payment_status',
                     'paid_on',
                     'transaction_payments.payment_ref_no',
                     'transaction_payments.document',
@@ -2694,6 +2695,10 @@ class ReportController extends Controller
             if (!empty($request->get('payment_types'))) {
                 $query->where('transaction_payments.method', $request->get('payment_types'));
             }
+            if (!empty($request->get('payment_status'))) {
+                $query->where('t.payment_status', $request->get('payment_status'));
+            }
+            
             $payment_types = $this->transactionUtil->payment_types();
             return Datatables::of($query)
                  ->editColumn('invoice_no', function ($row) {

@@ -805,7 +805,7 @@ $(document).ready(function () {
         $('form#add_outside_order_form').on('submit', (e) => {
             e.preventDefault();
             $(e.target).find('button[type="submit"]').attr('disabled', true);
-            localStorage.setItem('trans_type', 'OUTSIDE');
+
             pos_form_obj.submit();
         });
     });
@@ -827,6 +827,7 @@ $(document).ready(function () {
             url: '/api/updateCustomerSubscriptionInfo',
             data: data,
             success: (response) => {
+                localStorage.removeItem('trans_type');
                 if (response.status) {
                     current_balance = response.data;
                 }
@@ -834,6 +835,7 @@ $(document).ready(function () {
                 pos_form_obj.submit();
             },
             error: (error) => {
+                localStorage.removeItem('trans_type');
                 $("#ajaxModal").modal("hide");
                 alert('Something went wrong');
             }

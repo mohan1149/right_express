@@ -1011,6 +1011,7 @@ $(document).ready(function() {
                 d.supplier_id = $('select#customer_id').val();
                 d.location_id = $('select#location_id').val();
                 d.payment_types = $('select#payment_types').val();
+                d.payment_status = $('select#payment_status').val();
 
                 var start = '';
                 var end = '';
@@ -1101,7 +1102,7 @@ $(document).ready(function() {
         });
     }
 
-    $('#sell_payment_report_form #location_id, #sell_payment_report_form #customer_id, #sell_payment_report_form #payment_types').change(
+    $('#sell_payment_report_form #location_id, #sell_payment_report_form #customer_id, #sell_payment_report_form #payment_types, #sell_payment_report_form #payment_status').change(
         function() {
             sell_payment_report.ajax.reload();
         }
